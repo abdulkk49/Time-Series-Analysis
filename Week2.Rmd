@@ -1,0 +1,52 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+install.packages("astsa")
+```
+
+
+```{r}
+library(astsa)
+help(jj)
+plot(jj)
+```
+Simulating a random walk 
+```{r}
+x = NULL
+x[1] = 0
+for(i in 2:1000){
+  x[i] = x[i-1] + rnorm(1,0,1)
+}
+```
+
+Simulating a stationary time series from random walk
+```{r}
+random_walk = ts(x)
+acf(diff(random_walk))
+```
+
+Simulating a purely random process : Stationary time series
+```{r}
+purely_random_process = ts(rnorm(100))
+purely_random_process
+plot(purely_random_process)
+(acf(purely_random_process, type = "covariance"))
+```
+
+Simulating an MA(2) process : Stationary Time series
+```{r}
+noise = rnorm(10000)
+
+ma_2 = NULL
+for(i in 3:10000){
+  ma_2[i] = noise[i] + 0.7*noise[i-1] + 0.2*noise[i-2]
+}
+
+moving_average_process = ts(ma_2[3:10000])
+
+acf(moving_average_process)
+```
+
+
